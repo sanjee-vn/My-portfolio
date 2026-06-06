@@ -13,6 +13,8 @@ interface Project {
   techList: string[];
   details: string[];
   link: string;
+  linkLabel?: string;
+  liveLink?: string;
   images: {
     col1_top: string;
     col1_bottom: string;
@@ -40,7 +42,7 @@ const projects: Project[] = [
       'Used Docker and Docker Compose for containerization and Kubernetes for deployment, scalability, and service orchestration.',
       'Integrated MongoDB for efficient data storage and built responsive React.js frontend for improved user experience.'
     ],
-    link: 'https://github.com/sanjee-vn/SmartCareHub',
+    link: 'https://github.com/sathurgini01/SmartCareHub.git',
     images: {
       col1_top: '/assets/projects/Screenshot 2026-06-03 230113.png',
       col1_bottom: '/assets/projects/smartcarehub_dashboard.png',
@@ -81,7 +83,8 @@ const projects: Project[] = [
       'Built scalable REST APIs with Node.js and Express.js using JWT authentication for secure user access.',
       'Integrated MongoDB databases and designed responsive React.js interfaces to ensure scalability and improved user experience.'
     ],
-    link: 'https://github.com/sanjee-vn/VentureAssist',
+    link: 'https://github.com/sathurgini01/VentureAssist.git',
+    liveLink: 'https://ventureassist-1.onrender.com/',
     images: {
       col1_top: '/assets/projects/Screenshot 2026-06-02 210842.png',
       col1_bottom: '/assets/projects/ventureassist_footer.png',
@@ -115,7 +118,7 @@ const projects: Project[] = [
       'Built REST APIs with Node.js and Express.js and integrated MongoDB for managing user data and platform interactions.',
       'Designed responsive React.js interfaces and applied scalable architecture to enhance student engagement and system usability.'
     ],
-    link: 'https://github.com/sanjee-vn',
+    link: 'https://github.com/sanjee-vn/canvas_connect',
     images: {
       col1_top: '/assets/projects/1766143754299.jpg',
       col1_bottom: '/assets/projects/1766143755096.jpg',
@@ -149,7 +152,8 @@ const projects: Project[] = [
       'Mobile app built with Kotlin, Android SDK, and XML Layouts to manage classes, deadlines, projects, and tasks with reminders and progress tracking.',
       'Designed with an intuitive UI/UX to enhance student productivity and academic organization.'
     ],
-    link: 'https://github.com/sanjee-vn',
+    link: 'https://www.figma.com/proto/g7LH1Tmxy40qPlmH3kOcoq/Elevare?node-id=22-28&t=XQH95hST30HJseUg-1&starting-point-node-id=22%3A28',
+    linkLabel: 'Prototype',
     images: {
       col1_top: '/assets/projects/1754902063024.jpg',
       col1_bottom: '/assets/projects/1754902063024.jpg',
@@ -174,7 +178,7 @@ const projects: Project[] = [
       'Integrated MySQL database for managing products, users, and orders.',
       'Implemented user authentication, product browsing, search functionality, and order management.'
     ],
-    link: 'https://github.com/sanjee-vn',
+    link: 'https://github.com/sanjee-vn/Online-Music-Store.git',
     images: {
       col1_top: '/assets/projects/Screenshot 2026-06-06 174747.png',
       col1_bottom: '/assets/projects/Screenshot 2026-06-06 175017.png',
@@ -428,9 +432,12 @@ export default function ProjectsSection() {
                 </div>
               </div>
 
-              {/* Codebase Github button */}
-              <div className="flex justify-end pt-2">
-                <LiveProjectButton href={activeModalProject.link} label="Codebase" />
+              {/* Codebase / Live Demo buttons */}
+              <div className="flex justify-end gap-3 pt-2">
+                {activeModalProject.liveLink && (
+                  <LiveProjectButton href={activeModalProject.liveLink} label="Live Demo" />
+                )}
+                <LiveProjectButton href={activeModalProject.link} label={activeModalProject.linkLabel || "Codebase"} />
               </div>
             </motion.div>
           </div>
