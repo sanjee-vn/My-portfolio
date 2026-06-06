@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import Hls from 'hls.js';
 
 const roles = ["Creative", "Fullstacker", "Builder", "Scholar"];
 
@@ -22,20 +21,28 @@ export default function Hero() {
     if (!video) return;
 
     const videoSrc = "https://stream.mux.com/Gs3wZfrtz6ZfqZqQ02c02Z7lugV00FGZvRpcqFTel66r3g.m3u8";
+    let hlsInstance: any = null;
 
     if (video.canPlayType('application/vnd.apple.mpegurl')) {
       // Native HLS support (Safari / iOS)
       video.src = videoSrc;
-    } else if (Hls.isSupported()) {
-      // Chrome / Edge / Firefox HLS playback
-      const hls = new Hls();
-      hls.loadSource(videoSrc);
-      hls.attachMedia(video);
-
-      return () => {
-        hls.destroy();
-      };
+    } else {
+      // Chrome / Edge / Firefox HLS playback - dynamically import hls.js on client side
+      import('hls.js').then((HlsModule) => {
+        const Hls = HlsModule.default;
+        if (Hls && Hls.isSupported()) {
+          hlsInstance = new Hls();
+          hlsInstance.loadSource(videoSrc);
+          hlsInstance.attachMedia(video);
+        }
+      });
     }
+
+    return () => {
+      if (hlsInstance) {
+        hlsInstance.destroy();
+      }
+    };
   }, []);
 
   // GSAP Entrance Animations
