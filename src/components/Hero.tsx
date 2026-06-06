@@ -101,7 +101,7 @@ export default function Hero() {
       <div className="relative z-10 text-center max-w-2xl px-6 flex flex-col items-center pt-16 sm:pt-20">
         {/* Eyebrow Label */}
         <span className="blur-in text-xs text-muted font-medium uppercase tracking-[0.3em] mb-8 select-none">
-          Welcome, I'm
+          Hello World, I'm
         </span>
 
         {/* Big Name */}
